@@ -1,0 +1,39 @@
+﻿@model SharedFileViewModel
+@{
+    ViewData["Title"] = "EditFile";
+}
+
+
+<hr />
+<div class="row">
+    <div class="col-md-3">FileName</div>
+    <div class="col-md-6">@Model.FileName</div>
+    <div class="col-md-3"></div>
+
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-3">FileSize</div>
+    <div class="col-md-6">@Model.FileSize</div>
+    <div class="col-md-3"></div>
+
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-3">UploadDate</div>
+    <div class="col-md-6">@Model.UploadDate</div>
+    <div class="col-md-3"></div>
+
+</div>
+<hr />
+<div class="mb-3">
+    <form id="file-add-form" asp-controller="Share" asp-action="EditFile" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="form-group">
+                <input type="hidden" value="@Model.Id" name="fileId"/>
+                <input class="form-control-file" type="file" name="file" />
+                <button class="float-right btn btn-primary" type="submit">Upload File</button>
+            </div>
+        </div>
+    </form>
+</div>

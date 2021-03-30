@@ -1,0 +1,60 @@
+﻿@model List<SharedFileViewModel>
+@{
+    ViewData["Title"] = "Files";
+}
+
+<div class="mb-3">
+    <form id="file-add-form" asp-controller="Share" asp-action="UploadFiles" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="form-group">
+                <input class="form-control-file" type="file" name="files" multiple />
+                <button class="float-right btn btn-primary" type="submit">Upload File</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="custom-scrollbar">
+    @if (!Model.Any())
+    {
+        <table>
+            <tr>
+                <td colspan="5" class="text-center">No files found.</td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <table class="table table-hover thead-dark text-left">
+            <thead>
+                <tr>
+                    <th>File ID</th>
+                    <th>File name</th>
+                    <th>File size</th>
+                    <th>Upload date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var file in Model)
+                {
+                    <tr data-file-id="@file.Id">
+                        <td>@file.Id</td>
+                        <td>@file.FileName</td>
+                        <td>@file.FileSize</td>
+                        <td>@file.UploadDate</td>
+                        <td>
+                            <a class="btn btn-primary cursor-pointer" asp-action="Download" asp-route-id="@file.Id">Download</a>
+                            <a class="btn btn-success cursor-pointer" id="edit-file-@file.Id" asp-action="EditFile" asp-route-id="@file.Id" >Edit</a>
+                            <a class="btn btn-danger cursor-pointer" asp-action="Delete" asp-route-id="@file.Id">Delete</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@section scripts{
+    
+}
